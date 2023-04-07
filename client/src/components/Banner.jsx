@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "./Modal";
+import { UserContext } from "../UserContext";
 
 const Banner = () => {
+  const { user } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const editHandler = (e) => {
     e.preventDefault();
@@ -133,8 +135,11 @@ const Banner = () => {
           </div>
           <div className="inline ml-3 text-sm">
             <span className="block">Hello,</span>
-            <span className="block font-bold text-base">Cipher Schools</span>
-            <span>***********@gmail.com</span>
+            <span className="block font-bold text-base">
+              {" "}
+              {(user && user.firstName) || "Cipher Schools"}
+            </span>
+            <span>{(user && user.email) || "*******@gmail.com"}</span>
           </div>
         </div>
 
