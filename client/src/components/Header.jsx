@@ -3,9 +3,19 @@ import { AiOutlineCompass } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
+  const [redirect, setRedirect] = useState(null);
   const { user } = useContext(UserContext);
+  const logoutHandler = async (e) => {
+    await axios.post("/logout");
+    setRedirect("/");
+    setUser(null);
+  };
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
   return (
     <>
       <header className="bg-white h-14 flex items-center justify-between p-4">
@@ -84,12 +94,19 @@ const Header = () => {
             </div>
             <span className="text-orange-500 font-bold">0</span>
           </div>
-          {!user && (
+          {(!user && (
             <div>
               <Link to="/login" className="bg-orange-500 p-2 rounded-3xl">
                 Login
               </Link>
             </div>
+          )) || (
+            <button
+              className="bg-orange-500 p-2 rounded-3xl"
+              onClick={logoutHandler}
+            >
+              Logout
+            </button>
           )}
         </div>
       </header>

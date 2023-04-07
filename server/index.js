@@ -1,13 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./db/connect");
-
+const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/auth");
-
+const jwt = require("jsonwebtoken");
+const User = require("./models/User");
 require("dotenv").config();
 const app = express();
 
+const jwtSecret = "fasefraw4r5r3wq45wdfgw34twdfg";
+
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -22,8 +26,10 @@ app.get("/", (req, res) => {
   if (token) {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
-      const { name, email, _id } = await User.findById(userData.id);
-      res.json({ name, email, _id });
+      const { firstName, lastName, email, _id } = await User.findById(
+        userData.id
+      );
+      res.json({ firstName, lastName, email, _id });
     });
   } else {
     res.json(null);
