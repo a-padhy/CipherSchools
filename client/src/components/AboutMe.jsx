@@ -12,7 +12,6 @@ const AboutMe = () => {
       <textarea
         className="p-4 w-full bg-white"
         rows="4"
-        disabled
         placeholder="Add something about you."
       ></textarea>
 
