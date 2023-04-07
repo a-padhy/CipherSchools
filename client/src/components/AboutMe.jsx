@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutMe = () => {
   return (
-    <div className="bg-slate-200 px-10 pt-7 pb-5">
+    <div className="px-10 pt-7 pb-5">
       <div className="flex justify-between mb-5">
         <h2 className="uppercase font-bold text-base leading-6">about me</h2>
         <button className="bg-orange-500 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white">
