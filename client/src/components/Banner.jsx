@@ -5,7 +5,6 @@ const Banner = () => {
   const [isOpen, setIsOpen] = useState(false);
   const editHandler = (e) => {
     e.preventDefault();
-    console.log("Ashutosh");
     setIsOpen(true);
   };
   const closeModal = () => {
@@ -13,7 +12,7 @@ const Banner = () => {
   };
   const modal = (
     <Modal closeModal={closeModal}>
-      <div className="p-5 relative">
+      <div className="p-5">
         <div className="flex justify-between">
           <span className="text-bold">Profile Update</span>
           <span onClick={closeModal}>
@@ -88,7 +87,10 @@ const Banner = () => {
           </div>
         </div>
         <div className="flex items-center justify-end gap-3 mt-3">
-          <button className="cursor-pointer p-4 bg-gray-500 text-white text-base ">
+          <button
+            onClick={closeModal}
+            className="cursor-pointer p-4 bg-gray-500 text-white text-base "
+          >
             Cancel
           </button>
           <button className="cursor-pointer p-4 bg-orange-500 text-white text-base">
@@ -137,7 +139,7 @@ const Banner = () => {
         </div>
 
         <div className="">
-          <button>**.2K followers</button>
+          <button>10K followers</button>
         </div>
       </div>
     </>
