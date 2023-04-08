@@ -12,6 +12,11 @@ const Banner = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  const [fName, setFName] = useState("John");
+  const [lName, setlName] = useState("Doe");
+  const [email, setEmail] = useState("admin@gmail.com");
+
   const modal = (
     <Modal closeModal={closeModal}>
       <div className="p-5">
@@ -50,9 +55,8 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  name=""
-                  id=""
-                  placeholder="Ashutosh"
+                  value={fName}
+                  onChange={(e) => setFName(e.target.value)}
                 />
               </div>
               <div>
@@ -60,9 +64,8 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  name=""
-                  id=""
-                  placeholder="Padhy"
+                  value={lName}
+                  onChange={(e) => setlName(e.target.value)}
                 />
               </div>
               <div>
@@ -70,9 +73,8 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  name=""
-                  id=""
-                  placeholder="ashutoshpadhy001@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -80,8 +82,6 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  name=""
-                  id=""
                   placeholder="Mobile Number"
                 />
               </div>
@@ -96,7 +96,7 @@ const Banner = () => {
             Cancel
           </button>
           <button className="cursor-pointer p-4 bg-orange-500 text-white text-base">
-            Close
+            Save
           </button>
         </div>
       </div>

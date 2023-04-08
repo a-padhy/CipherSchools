@@ -1,13 +1,39 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineCompass } from "react-icons/ai";
-import { IoIosArrowDown } from "react-icons/io";
 import { UserContext } from "../UserContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import {
+  IconButton,
+  Input,
+  Box,
+  Button,
+  Divider,
+  Grid,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { BiSearchAlt2 } from "react-icons/bi";
+import { FaFilter, FaMapMarkerAlt } from "react-icons/fa";
+const browseOptions = [
+  { label: "App Development" },
+  { label: "Web Development" },
+  { label: "Game Development" },
+  { label: "Data Structures" },
+  { label: "Programming" },
+  { label: "Machine Learning" },
+  { label: "Data Sciences" },
+  { label: "Others" },
+];
 
 const Header = () => {
   const [redirect, setRedirect] = useState(null);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const logoutHandler = async (e) => {
     await axios.post("/logout");
     setRedirect("/");
@@ -16,27 +42,133 @@ const Header = () => {
   if (redirect) {
     return <Navigate to={redirect} />;
   }
+  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
+
+  const handleSearch = () => {
+    console.log(`Search term: ${searchTerm}, Location: ${location}`);
+    // Perform search action here
+  };
+
+  const handleFilter = () => {
+    console.log("Open filter menu");
+    // Open filter menu here
+  };
   return (
     <>
       <header className="bg-white h-14 flex items-center justify-between p-4">
-        <div className="flex items-center">
-          <div className="mr-2 flex items-center">
-            <img
-              className="h-9 ml-4"
-              src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png"
-              alt="img"
-            ></img>
-            <h1 className="pl-1 font-bold text-xl">CipherSchools</h1>
-          </div>
-          <div className="h-4 mx-4 flex items-center">
-            <AiOutlineCompass />
-            <span className="px-1">Browse</span>
-            <IoIosArrowDown />
+        <div className="mr-2 flex items-center">
+          {/* //Left Container */}
+          <img
+            className="h-9 ml-4"
+            src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png"
+            alt="img"
+          ></img>
+          <h1 className="pl-1 font-bold text-xl">CipherSchools</h1>
+          <div className="h-4 hidden mx-4 lg:flex items-center">
+            <FormControl
+              size="small"
+              sx={{
+                m: 1,
+                minWidth: 150,
+                display: "flex",
+                border: "none",
+                boxShadow: "none",
+                outline: "none",
+              }}
+              variant="standard"
+            >
+              <InputLabel
+                position="static"
+                id="demo-simple-select-standard-label"
+                sx={{
+                  display: "flex",
+                  border: "none",
+                  outline: "none",
+                  boxShadow: "none",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  width: "fit-content",
+                  paddingRight: "10px",
+                }}
+              >
+                <InputAdornment position="start">
+                  <AiOutlineCompass />
+                </InputAdornment>
+                Browse
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-autowidth-label"
+                id="demo-select-small-autowidth"
+                // value={age}
+                // onChange={handleChange}
+                autoWidth
+                label="Age"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Twenty</MenuItem>
+                <MenuItem value={21}>Twenty one</MenuItem>
+                <MenuItem value={22}>Twenty one and a half</MenuItem>
+              </Select>
+            </FormControl>
           </div>
         </div>
-        <div className="flex items-center flex-row gap-6 pr-10 justify-center">
-          <div className="max-w-md mx-auto">
-            <div className="relative flex items-center w-full h-9 rounded-3xl focus-within:shadow-lg bg-white overflow-hidden">
+
+        <div className=" flex items-center flex-row gap-6 pr-10 justify-center">
+          {/* //Search Bar Right */}
+          <div className="h-4 hidden mx-4 items-center">
+            <FormControl
+              size="small"
+              sx={{
+                m: 1,
+                minWidth: 150,
+                display: "flex",
+                border: "none",
+                boxShadow: "none",
+                outline: "none",
+              }}
+              variant="standard"
+            >
+              <InputLabel
+                position="static"
+                id="demo-simple-select-standard-label"
+                sx={{
+                  display: "flex",
+                  border: "none",
+                  outline: "none",
+                  boxShadow: "none",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  width: "fit-content",
+                  paddingRight: "10px",
+                }}
+              >
+                <InputAdornment position="start">
+                  <AiOutlineCompass />
+                </InputAdornment>
+                Browse
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-autowidth-label"
+                id="demo-select-small-autowidth"
+                // value={age}
+                // onChange={handleChange}
+                autoWidth
+                label="Age"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Twenty</MenuItem>
+                <MenuItem value={21}>Twenty one</MenuItem>
+                <MenuItem value={22}>Twenty one and a half</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <div className="max-w-md hidden lg:block mx-auto ">
+            <div className="relative flex items-center w-full h-9 rounded-3xl focus-within:shadow-lg bg-[#F2F5FA] overflow-hidden">
               <div className="grid place-items-center h-full w-12 text-gray-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -55,14 +187,13 @@ const Header = () => {
               </div>
 
               <input
-                className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 "
+                className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 bg-[#F2F5FA]"
                 type="text"
                 id="search"
                 placeholder="Search and Learn"
               />
             </div>
           </div>
-
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -95,11 +226,9 @@ const Header = () => {
             <span className="text-orange-500 font-bold">0</span>
           </div>
           {(!user && (
-            <div>
-              <Link to="/login" className="bg-orange-500 p-2 rounded-3xl">
-                Login
-              </Link>
-            </div>
+            <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-5 rounded">
+              <Link to="/login">Login</Link>
+            </button>
           )) || (
             <button
               className="bg-orange-500 p-2 rounded-3xl"
