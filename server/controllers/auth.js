@@ -50,8 +50,38 @@ const logoutUser = async (req, res) => {
   res.cookie("token", "").json(true);
 };
 
+const changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user._id;
+
+  try {
+    // Check if current password is correct
+    const user = await User.findById(userId);
+    const isPasswordMatched = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+
+    if (!isPasswordMatched) {
+      return res.status(401).json({ message: "Current password is incorrect" });
+    }
+
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update user's password
+    await User.findByIdAndUpdate(userId, { password: hashedPassword });
+    console.log("updated");
+    return res.json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
+  changePassword,
 };

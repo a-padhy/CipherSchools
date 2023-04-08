@@ -1,8 +1,48 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Modal from "./Modal";
+
+const token = localStorage.getItem("token");
+const headers = { Authorization: `Bearer ${token}` };
 
 const Pw = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (formData.newPassword !== formData.confirmPassword) {
+      setErrors({ confirmPassword: "Passwords do not match" });
+      return;
+    }
+
+    try {
+      await axios.put("/change-password", formData, { headers });
+      setSuccessMessage("Password updated successfully");
+      setErrors({});
+      setFormData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.error(error.response.data);
+      setErrors(error.response.data);
+    }
+  };
+
   const changePwHandler = (e) => {
     e.preventDefault();
     setIsOpen(true);
@@ -22,6 +62,9 @@ const Pw = () => {
               <input
                 className="py-2.5 px-4 bg-slate-100 w-full"
                 type="password"
+                name="currentPassword"
+                value={formData.currentPassword}
+                onChange={handleChange}
                 placeholder="Current Password"
               />
               <svg
@@ -43,15 +86,52 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
+              {errors.currentPassword && <p>{errors.currentPassword}</p>}
             </div>
           </div>
           <div>
-            <div>Current Password</div>
+            <div>New Password</div>
+            <div className="flex items-center bg-slate-100">
+              <input
+                className="py-2.5 px-4 bg-slate-100 w-full"
+                name="newPassword"
+                value={formData.newPassword}
+                onChange={handleChange}
+                type="password"
+                placeholder="New Password"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              {errors.newPassword && <p>{errors.newPassword}</p>}
+            </div>
+          </div>
+          <div>
+            <div>Confirm Password</div>
             <div className="flex items-center bg-slate-100">
               <input
                 className="py-2.5 px-4 bg-slate-100 w-full"
                 type="password"
-                placeholder="Current Password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Password"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,35 +152,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-            </div>
-          </div>
-          <div>
-            <div>Current Password</div>
-            <div className="flex items-center bg-slate-100">
-              <input
-                className="py-2.5 px-4 bg-slate-100 w-full"
-                type="password"
-                placeholder="Current Password"
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
+              {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
             </div>
           </div>
           <div className="flex items-center justify-end gap-3 mt-3">
@@ -110,7 +162,10 @@ const Pw = () => {
             >
               Cancel
             </button>
-            <button className="cursor-pointer p-4 bg-orange-500 text-white text-base">
+            <button
+              className="cursor-pointer p-4 bg-orange-500 text-white text-base"
+              onClick={handleSubmit}
+            >
               Save
             </button>
           </div>

@@ -108,9 +108,9 @@ const Header = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Twenty</MenuItem>
-                <MenuItem value={21}>Twenty one</MenuItem>
-                <MenuItem value={22}>Twenty one and a half</MenuItem>
+                <MenuItem value={10}>App Development</MenuItem>
+                <MenuItem value={21}>Web Development</MenuItem>
+                <MenuItem value={22}>Game Development</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -226,12 +226,12 @@ const Header = () => {
             <span className="text-orange-500 font-bold">0</span>
           </div>
           {(!user && (
-            <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-5 rounded">
+            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-5 rounded">
               <Link to="/login">Login</Link>
             </button>
           )) || (
             <button
-              className="bg-orange-500 p-2 rounded-3xl"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-5 rounded"
               onClick={logoutHandler}
             >
               Logout
