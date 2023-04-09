@@ -25,7 +25,7 @@ const RegisterPage = () => {
     }
   };
   if (redirect) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={redirect} />;
   }
   return (
     <div className="bg-white fixed top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2 w-1/3">

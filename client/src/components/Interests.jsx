@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import selectedOptions from "../Options";
+
+const selectedOptions = [
+  { optionId: 1, label: "App Development", selected: false },
+  { optionId: 2, label: "Web Development", selected: true },
+  { optionId: 3, label: "Game Development", selected: false },
+  { optionId: 4, label: "Data Structures", selected: false },
+  { optionId: 5, label: "Programming", selected: false },
+  { optionId: 6, label: "Machine Learning", selected: false },
+  { optionId: 7, label: "Data Science", selected: false },
+  { optionId: 8, label: "Others", selected: false },
+];
 
 const Interests = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [options, setOptions] = useState(selectedOptions);
   const editHandler = (e) => {
     e.preventDefault();
     setIsOpen(true);
@@ -11,15 +22,27 @@ const Interests = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
+  const optionClickHandler = (optionId) => {
+    const updatedOptions = options.map((option) => {
+      if (option.optionId === optionId) {
+        return { ...option, selected: !option.selected };
+      } else {
+        return option;
+      }
+    });
+    setOptions(updatedOptions);
+  };
   const modal = (
     <Modal closeModal={closeModal}>
       <div className="p-5">
         <div className="grid grid-cols-2 gap-5 text-white">
-          {selectedOptions.map(({ optionId, label }) => (
+          {options.map(({ optionId, label, selected }) => (
             <span
               key={optionId}
-              className="bg-orange-500 p-2 rounded cursor-pointer"
+              className={`${
+                selected ? "bg-orange-500" : "bg-pink-500"
+              } p-2 rounded cursor-pointer`}
+              onClick={() => optionClickHandler(optionId)}
             >
               {label}
             </span>
@@ -43,14 +66,17 @@ const Interests = () => {
           </button>
         </div>
         <div className="mt-3">
-          {selectedOptions.map(({ optionId, label }) => (
-            <span
-              key={optionId}
-              className="inline-flex items-center mx-2 px-5 py-1 rounded-half text-sm font-medium bg-orange-100 text-orange-600"
-            >
-              {label}
-            </span>
-          ))}
+          {options.map(({ optionId, label, selected }) => {
+            if (selected)
+              return (
+                <span
+                  key={optionId}
+                  className="inline-flex items-center mx-2 px-5 py-1 rounded-half text-sm font-medium bg-orange-100 text-orange-600"
+                >
+                  {label}
+                </span>
+              );
+          })}
         </div>
       </div>
     </>

@@ -16,16 +16,16 @@ const browseOptions = [
 ];
 
 const Header = () => {
-  const [redirect, setRedirect] = useState(null);
+  // const [redirect, setRedirect] = useState(null);
   const { user, setUser } = useContext(UserContext);
   const logoutHandler = async () => {
     await axios.post("/logout");
-    setRedirect("/");
+    // setRedirect("/");
     setUser(null);
   };
-  if (redirect) {
-    return <Navigate to={redirect} />;
-  }
+  // if (redirect) {
+  //   return <Navigate to={redirect} />;
+  // }
 
   return (
     <>
