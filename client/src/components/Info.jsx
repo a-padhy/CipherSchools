@@ -1,12 +1,6 @@
 import React from "react";
 import SocialMediaInput from "./Input/SocialMediaInput";
-const InfoV2 = () => {
-  //   const [facebook, setFacebook] = React.useState("");
-  //   const [instagram, setInstagram] = React.useState("");
-  //   const [twitter, setTwitter] = React.useState("");
-  //   const [youtube, setYoutube] = React.useState("");
-  //   const [linkedin, setLinkedin] = React.useState("");
-  //   const [pinterest, setPinterest] = React.useState("");
+const Info = () => {
   return (
     <div className="px-10 pb-5">
       <div className="flex justify-between">
@@ -63,4 +57,4 @@ const InfoV2 = () => {
   );
 };
 
-export default InfoV2;
+export default Info;

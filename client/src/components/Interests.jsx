@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "./Modal";
+import InterestModal from "./Modals/InterestModal";
 
 const selectedOptions = [
   { optionId: 1, label: "App Development", selected: false },
@@ -22,59 +22,16 @@ const Interests = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("hi");
-  };
-  const optionClickHandler = (optionId) => {
-    const updatedOptions = options.map((option) => {
-      if (option.optionId === optionId) {
-        return { ...option, selected: !option.selected };
-      } else {
-        return option;
-      }
-    });
-    setOptions(updatedOptions);
-  };
-  const modal = (
-    <Modal closeModal={closeModal}>
-      <div className="p-5">
-        <div className="grid grid-cols-2 gap-5 text-white">
-          {options.map(({ optionId, label, selected }) => (
-            <span
-              key={optionId}
-              className={`${
-                selected
-                  ? "bg-orange-500 text-white"
-                  : "bg-slate-200 text-black"
-              } p-2 rounded cursor-pointer`}
-              onClick={() => optionClickHandler(optionId)}
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-        <div className="flex items-center justify-end gap-3 mt-3">
-          <button
-            onClick={closeModal}
-            className="cursor-pointer px-8 py-2 bg-gray-500 text-white text-base rounded-3xl hover:bg-gray-600"
-          >
-            Cancel
-          </button>
-          <button
-            className="cursor-pointer px-8 py-2 bg-orange-500 text-white text-base rounded-3xl hover:bg-orange-600"
-            onClick={handleSubmit}
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    </Modal>
-  );
 
   return (
     <>
-      {isOpen && modal}
+      {isOpen && (
+        <InterestModal
+          closeModal={closeModal}
+          options={options}
+          setOptions={setOptions}
+        />
+      )}
       <div className="mb-2 w-full px-10 py-5">
         <div className="flex justify-between align-center h-10">
           <label className="block text-lg font-semibold">INTERESTS</label>

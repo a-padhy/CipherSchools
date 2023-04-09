@@ -3,9 +3,9 @@ import AboutMe from "../components/AboutMe";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Heatmap from "../components/Heatmap";
-import InfoV2 from "../components/InfoV2";
+import Info from "../components/Info";
 import Interests from "../components/Interests";
-import ProfInfoV2 from "../components/ProfInfoV2";
+import ProfInfo from "../components/ProfInfo";
 import Password from "../components/Password";
 const ProfilePage = () => {
   return (
@@ -14,8 +14,8 @@ const ProfilePage = () => {
       <Banner />
       <AboutMe />
       <Heatmap />
-      <InfoV2 />
-      <ProfInfoV2 />
+      <Info />
+      <ProfInfo />
       <Password />
       <Interests />
     </>

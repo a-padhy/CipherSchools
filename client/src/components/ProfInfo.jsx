@@ -1,7 +1,7 @@
 import React from "react";
 import SocialMediaInput from "./Input/SocialMediaInput";
 import DropDownInput from "./Input/DropDownInput";
-const ProfInfoV2 = () => {
+const ProfInfo = () => {
   const educationOptions = [
     { label: "High School", value: "high-school" },
     { label: "Associate's Degree", value: "associates-degree" },
@@ -42,4 +42,4 @@ const ProfInfoV2 = () => {
   );
 };
 
-export default ProfInfoV2;
+export default ProfInfo;
