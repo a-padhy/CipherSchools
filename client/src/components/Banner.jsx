@@ -10,7 +10,7 @@ const Banner = () => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = axios.get("/").then(({ data }) => {
+      axios.get("/").then(({ data }) => {
         setUser(data);
       });
     };
@@ -25,12 +25,15 @@ const Banner = () => {
     setIsOpen(false);
   };
 
+  console.log(user);
+
   const [formData, setFormData] = useState({
     firstName: (user && `${user.firstName}`) || "John",
     lastName: (user && `${user.lastName}`) || "Doe",
     email: (user && `${user.email}`) || "admin@gmail.com",
     phoneNo: "",
   });
+  console.log(formData);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));

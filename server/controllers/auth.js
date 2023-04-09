@@ -102,6 +102,7 @@ const changeProfile = async (req, res) => {
       firstName,
       lastName,
       email,
+      phoneNo,
     });
     console.log("updated profile details");
     return res.json({ message: "Profile updated successfully" });
