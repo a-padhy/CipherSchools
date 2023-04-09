@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Modal from "./Modal";
 import { UserContext } from "../UserContext";
 import axios from "axios";
+import { Link, Navigate } from "react-router-dom";
 
 const Banner = () => {
   const { user } = useContext(UserContext);
@@ -14,10 +15,31 @@ const Banner = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const [formData, setFormData] = useState({
+    firstName: user?.firstName || "John",
+    lastName: user?.lastName || "Doe",
+    email: user?.email || "admin@gmail.com",
+    phoneNo: "",
+  });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
 
-  const [fName, setFName] = useState(user.firstName);
-  const [lName, setlName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
+  const handleSubmit = async () => {
+    console.log(formData);
+    try {
+      await axios.put("/change-profile", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("details updated");
+    } catch (error) {
+      console.log(error);
+    }
+    return <Navigate to={"/"} />;
+  };
 
   const modal = (
     <Modal closeModal={closeModal}>
@@ -57,8 +79,9 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  value={fName}
-                  onChange={(e) => setFName(e.target.value)}
+                  name="firstName"
+                  value={formData?.firstName}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -66,8 +89,9 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  value={lName}
-                  onChange={(e) => setlName(e.target.value)}
+                  name="lastName"
+                  value={formData?.lastName}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -75,16 +99,20 @@ const Banner = () => {
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
                   type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  name="email"
+                  value={formData?.email}
+                  onChange={handleChange}
                 />
               </div>
               <div>
                 <div>Mobile Number</div>
                 <input
                   className="py-2.5 px-4 bg-slate-100 w-full"
-                  type="text"
+                  type="tel"
+                  name="phoneNo"
                   placeholder="Mobile Number"
+                  value={formData.phoneNo}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -97,7 +125,10 @@ const Banner = () => {
           >
             Cancel
           </button>
-          <button className="cursor-pointer p-4 bg-orange-500 text-white text-base">
+          <button
+            className="cursor-pointer p-4 bg-orange-500 text-white text-base"
+            onClick={handleSubmit}
+          >
             Save
           </button>
         </div>
@@ -145,9 +176,9 @@ const Banner = () => {
           </div>
         </div>
 
-        <div className="">
-          <button>10K followers</button>
-        </div>
+        <Link to="/followers" className="">
+          <button className="font-bold text-base">10K followers</button>
+        </Link>
       </div>
     </>
   );

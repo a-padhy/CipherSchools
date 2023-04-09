@@ -31,7 +31,6 @@ const Pw = () => {
           "Content-Type": "application/json",
         },
       });
-      setSuccessMessage("Password updated successfully");
       setErrors({});
       setFormData({
         currentPassword: "",
