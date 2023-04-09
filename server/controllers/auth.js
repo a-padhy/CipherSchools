@@ -80,9 +80,28 @@ const changePassword = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+const changeProfile = async (req, res) => {
+  const { firstName, lastName, email, phoneNo } = req.body;
+  const userId = req.user.id;
+
+  try {
+    await User.findByIdAndUpdate(userId, {
+      firstName,
+      lastName,
+      email,
+    });
+    console.log("updated profile details");
+    return res.json({ message: "Profile updated successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
   changePassword,
+  changeProfile,
 };

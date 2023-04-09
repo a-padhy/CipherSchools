@@ -8,6 +8,7 @@ const Banner = () => {
   const { user } = useContext(UserContext);
   // console.log(user);
   const [isOpen, setIsOpen] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const editHandler = (e) => {
     e.preventDefault();
     setIsOpen(true);
@@ -35,10 +36,10 @@ const Banner = () => {
         },
       });
       console.log("details updated");
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     }
-    return <Navigate to={"/"} />;
   };
 
   const modal = (
@@ -135,10 +136,13 @@ const Banner = () => {
       </div>
     </Modal>
   );
+  // if (redirect) {
+  //   return <Navigate to={"/"} />;
+  // }
   return (
     <>
       {isOpen && modal}
-      <div className="bg-cyan-100 h-24 py-1.5 px-10 flex justify-between items-center relative">
+      <div className="bg-gray-100 h-24 py-1.5 px-10 flex justify-between items-center relative">
         <div className="flex items-center">
           <div className=" flex items-center justify-center">
             <img
@@ -176,7 +180,7 @@ const Banner = () => {
           </div>
         </div>
 
-        <Link to="/followers" className="">
+        <Link to="/followers" className="border border-orange-500 p-2 ">
           <button className="font-bold text-base">10K followers</button>
         </Link>
       </div>

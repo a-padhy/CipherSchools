@@ -7,8 +7,8 @@ import Info from "../components/Info";
 import InfoV2 from "../components/InfoV2";
 import Interests from "../components/Interests";
 import ProfessionalInfo from "../components/ProfessionalInfo";
-import Pw from "../components/Pw";
 import ProfInfoV2 from "../components/ProfInfoV2";
+import Password from "../components/Password";
 const ProfilePage = () => {
   return (
     <>
@@ -20,7 +20,7 @@ const ProfilePage = () => {
       <InfoV2 />
       {/* <ProfessionalInfo /> */}
       <ProfInfoV2 />
-      <Pw />
+      <Password />
       <Interests />
     </>
   );

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Modal from "./Modal";
+import { Navigate } from "react-router-dom";
 
-const Pw = () => {
+const Password = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -20,18 +22,19 @@ const Pw = () => {
     event.preventDefault();
 
     if (formData.newPassword !== formData.confirmPassword) {
-      setErrors({ confirmPassword: "Passwords do not match" });
+      console.log("pw do not match");
+      // setErrors({ confirmPassword: "Passwords do not match" });
       return;
     }
 
     try {
-      // console.log({ header });
       await axios.put("/change-password", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      setErrors({});
+      // setErrors({});
+      setRedirect(true);
       setFormData({
         currentPassword: "",
         newPassword: "",
@@ -39,7 +42,8 @@ const Pw = () => {
       });
     } catch (error) {
       console.error(error);
-      setErrors(error?.response?.data);
+      console.log(error);
+      // setErrors(error?.response?.data);
     }
   };
 
@@ -86,7 +90,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {errors?.currentPassword && <p>{errors?.currentPassword}</p>}
+              {/* {errors?.currentPassword && <p>{errors?.currentPassword}</p>} */}
             </div>
           </div>
           <div>
@@ -119,7 +123,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {errors?.newPassword && <p>{errors?.newPassword}</p>}
+              {/* {errors?.newPassword && <p>{errors?.newPassword}</p>} */}
             </div>
           </div>
           <div>
@@ -152,7 +156,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {errors?.confirmPassword && <p>{errors?.confirmPassword}</p>}
+              {/* {errors?.confirmPassword && <p>{errors?.confirmPassword}</p>} */}
             </div>
           </div>
           <div className="flex items-center justify-end gap-3 mt-3">
@@ -174,15 +178,19 @@ const Pw = () => {
     </Modal>
   );
 
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <>
       {/* console.log({headers}); */}
       {isOpen && modal}
-      <div className="px-10 pb-5">
-        <div className="flex justify-between mb-5">
-          <h2 className="uppercase font-bold text-base leading-6">
-            password and security
-          </h2>
+      <div className="mb-2 w-full p-10">
+        <div className="flex justify-between align-center h-10">
+          <label className="block text-md font-medium">
+            PASSWORD AND SECURITY
+          </label>
           <button
             onClick={changePwHandler}
             className="bg-orange-500 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white"
@@ -190,19 +198,19 @@ const Pw = () => {
             Change
           </button>
         </div>
-
-        <div className="grid gap-y-0 gap-x-7 grid-cols-1 truncate w-full">
-          <div className="my-1">
-            <div className="capitalize">password</div>
-            <div className="flex bg-white py-2 px-4 mt-1">
-              <input type="password" placeholder="" />
-            </div>
-          </div>
+        <div className="relative rounded-md shadow-sm">
+          <input
+            type="password"
+            name="password"
+            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-lg border-gray-300 rounded-md"
+            placeholder="Password"
+            // value={value}
+            // onChange={onChange}
+          />
         </div>
-        <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
       </div>
     </>
   );
 };
 
-export default Pw;
+export default Password;

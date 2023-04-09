@@ -34,7 +34,7 @@ const browseOptions = [
 const Header = () => {
   const [redirect, setRedirect] = useState(null);
   const { user, setUser } = useContext(UserContext);
-  const logoutHandler = async (e) => {
+  const logoutHandler = async () => {
     await axios.post("/logout");
     setRedirect("/");
     setUser(null);
@@ -45,25 +45,20 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
 
-  const handleSearch = () => {
-    console.log(`Search term: ${searchTerm}, Location: ${location}`);
-    // Perform search action here
-  };
-
   const handleFilter = () => {
     console.log("Open filter menu");
-    // Open filter menu here
   };
   return (
     <>
       <header className="bg-white h-14 flex items-center justify-between p-4">
         <div className="mr-2 flex items-center">
-          {/* //Left Container */}
-          <img
-            className="h-9 ml-4"
-            src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png"
-            alt="img"
-          ></img>
+          <Link to="/">
+            <img
+              className="h-9 ml-4"
+              src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png"
+              alt="img"
+            ></img>
+          </Link>
           <h1 className="pl-1 font-bold text-xl">CipherSchools</h1>
           <div className="h-4 hidden mx-4 lg:flex items-center">
             <FormControl
@@ -105,12 +100,12 @@ const Header = () => {
                 autoWidth
                 label="Age"
               >
-                <MenuItem value="">
+                <MenuItem>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>App Development</MenuItem>
-                <MenuItem value={21}>Web Development</MenuItem>
-                <MenuItem value={22}>Game Development</MenuItem>
+                <MenuItem>App Development</MenuItem>
+                <MenuItem>Web Development</MenuItem>
+                <MenuItem>Game Development</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -158,12 +153,12 @@ const Header = () => {
                 autoWidth
                 label="Age"
               >
-                <MenuItem value="">
+                <MenuItem>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Twenty</MenuItem>
-                <MenuItem value={21}>Twenty one</MenuItem>
-                <MenuItem value={22}>Twenty one and a half</MenuItem>
+                <MenuItem>Twenty</MenuItem>
+                <MenuItem>Twenty one</MenuItem>
+                <MenuItem>Twenty one and a half</MenuItem>
               </Select>
             </FormControl>
           </div>
