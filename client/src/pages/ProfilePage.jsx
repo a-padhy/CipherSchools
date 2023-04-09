@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AboutMe from "../components/AboutMe";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
@@ -15,7 +15,7 @@ const ProfilePage = () => {
       <Header />
       <Banner />
       <AboutMe />
-      {/* <Heatmap /> */}
+      <Heatmap />
       {/* <Info /> */}
       <InfoV2 />
       {/* <ProfessionalInfo /> */}

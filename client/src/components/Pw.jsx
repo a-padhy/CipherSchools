@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "./Modal";
 
-const token = localStorage.getItem("token");
-const headers = { Authorization: `Bearer ${token}` };
-
 const Pw = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -13,7 +10,6 @@ const Pw = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -29,7 +25,12 @@ const Pw = () => {
     }
 
     try {
-      await axios.put("/change-password", formData, { headers });
+      // console.log({ header });
+      await axios.put("/change-password", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       setSuccessMessage("Password updated successfully");
       setErrors({});
       setFormData({
@@ -38,8 +39,8 @@ const Pw = () => {
         confirmPassword: "",
       });
     } catch (error) {
-      console.error(error.response.data);
-      setErrors(error.response.data);
+      console.error(error);
+      setErrors(error?.response?.data);
     }
   };
 
@@ -63,7 +64,7 @@ const Pw = () => {
                 className="py-2.5 px-4 bg-slate-100 w-full"
                 type="password"
                 name="currentPassword"
-                value={formData.currentPassword}
+                value={formData?.currentPassword}
                 onChange={handleChange}
                 placeholder="Current Password"
               />
@@ -86,7 +87,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {errors.currentPassword && <p>{errors.currentPassword}</p>}
+              {errors?.currentPassword && <p>{errors?.currentPassword}</p>}
             </div>
           </div>
           <div>
@@ -119,7 +120,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {errors.newPassword && <p>{errors.newPassword}</p>}
+              {errors?.newPassword && <p>{errors?.newPassword}</p>}
             </div>
           </div>
           <div>
@@ -152,7 +153,7 @@ const Pw = () => {
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+              {errors?.confirmPassword && <p>{errors?.confirmPassword}</p>}
             </div>
           </div>
           <div className="flex items-center justify-end gap-3 mt-3">
@@ -176,6 +177,7 @@ const Pw = () => {
 
   return (
     <>
+      {/* console.log({headers}); */}
       {isOpen && modal}
       <div className="px-10 pb-5">
         <div className="flex justify-between mb-5">

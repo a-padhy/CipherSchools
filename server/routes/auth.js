@@ -9,9 +9,9 @@ const {
   changePassword,
 } = require("../controllers/auth");
 
-router.patch("change-password", authMiddleware, changePassword);
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/logout").post(logoutUser);
+router.route("/change-password").put(authMiddleware, changePassword);
 
 module.exports = router;

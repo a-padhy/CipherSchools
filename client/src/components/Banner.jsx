@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Modal from "./Modal";
 import { UserContext } from "../UserContext";
+import axios from "axios";
 
 const Banner = () => {
   const { user } = useContext(UserContext);
+  // console.log(user);
   const [isOpen, setIsOpen] = useState(false);
   const editHandler = (e) => {
     e.preventDefault();
@@ -13,9 +15,9 @@ const Banner = () => {
     setIsOpen(false);
   };
 
-  const [fName, setFName] = useState("John");
-  const [lName, setlName] = useState("Doe");
-  const [email, setEmail] = useState("admin@gmail.com");
+  const [fName, setFName] = useState(user.firstName);
+  const [lName, setlName] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
 
   const modal = (
     <Modal closeModal={closeModal}>
