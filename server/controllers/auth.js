@@ -14,6 +14,18 @@ const registerUser = async (req, res) => {
       email,
       password: bcrypt.hashSync(password, bcryptSalt),
     });
+    jwt.sign(
+      {
+        email: userDoc.email,
+        id: userDoc._id,
+      },
+      jwtSecret,
+      {},
+      (err, token) => {
+        if (err) throw err;
+        res.cookie("token", token).json(userDoc);
+      }
+    );
     res.json(userDoc);
   } catch (e) {
     res.status(422).json(e);

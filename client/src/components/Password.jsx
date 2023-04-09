@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "./Modal";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Password = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +35,7 @@ const Password = () => {
         },
       });
       // setErrors({});
+      toast.success("Password Changed Successfully!");
       setRedirect(true);
       setFormData({
         currentPassword: "",
@@ -41,7 +43,6 @@ const Password = () => {
         confirmPassword: "",
       });
     } catch (error) {
-      console.error(error);
       console.log(error);
       // setErrors(error?.response?.data);
     }

@@ -11,7 +11,7 @@ const AboutMe = () => {
         </button>
       </div>
       <textarea
-        className="p-4 w-full bg-white rounded-lg"
+        className="p-4 w-full bg-white rounded-lg disabled"
         rows="4"
         placeholder="Add something about you."
       ></textarea>

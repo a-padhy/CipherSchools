@@ -181,7 +181,10 @@ const Banner = () => {
           </div>
         </div>
 
-        <Link to="/followers" className="border border-orange-500 p-2 ">
+        <Link
+          to="/followers"
+          className="border border-orange-500 p-2 rounded-lg"
+        >
           <button className="font-bold text-base">45 Followers</button>
         </Link>
       </div>
