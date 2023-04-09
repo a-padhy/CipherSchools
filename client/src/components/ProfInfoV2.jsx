@@ -19,9 +19,9 @@ const ProfInfoV2 = () => {
   ];
 
   return (
-    <div className="p-10">
+    <div className="px-10 py-5">
       <div className="flex justify-between">
-        <h2 class="text-lg font-semibold">PROFESSIONAL INFORMATION</h2>
+        <h2 class="text-lg font-semibold pb-1">PROFESSIONAL INFORMATION</h2>
         <button className="bg-orange-500 hover:bg-orange-600 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white">
           Edit
         </button>

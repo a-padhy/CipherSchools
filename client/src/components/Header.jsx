@@ -3,23 +3,7 @@ import { AiOutlineCompass } from "react-icons/ai";
 import { UserContext } from "../UserContext";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import {
-  IconButton,
-  Input,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { BiSearchAlt2 } from "react-icons/bi";
-import { FaFilter, FaMapMarkerAlt } from "react-icons/fa";
+import Browse from "./Browse";
 const browseOptions = [
   { label: "App Development" },
   { label: "Web Development" },
@@ -42,12 +26,7 @@ const Header = () => {
   if (redirect) {
     return <Navigate to={redirect} />;
   }
-  const [searchTerm, setSearchTerm] = useState("");
-  const [location, setLocation] = useState("");
 
-  const handleFilter = () => {
-    console.log("Open filter menu");
-  };
   return (
     <>
       <header className="bg-white h-14 flex items-center justify-between p-4">
@@ -60,108 +39,9 @@ const Header = () => {
             ></img>
           </Link>
           <h1 className="pl-1 font-bold text-xl">CipherSchools</h1>
-          {/* <div className="h-4 hidden mx-4 lg:flex items-center">
-            <FormControl
-              size="small"
-              sx={{
-                m: 1,
-                minWidth: 150,
-                display: "flex",
-                border: "none",
-                boxShadow: "none",
-                outline: "none",
-              }}
-              variant="standard"
-            >
-              <InputLabel
-                position="static"
-                id="demo-simple-select-standard-label"
-                sx={{
-                  display: "flex",
-                  border: "none",
-                  outline: "none",
-                  boxShadow: "none",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                  width: "fit-content",
-                  paddingRight: "10px",
-                }}
-              >
-                <InputAdornment position="start">
-                  <AiOutlineCompass />
-                </InputAdornment>
-                Browse
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-select-small-autowidth"
-                // value={age}
-                // onChange={handleChange}
-                autoWidth
-                label="Age"
-              >
-                <MenuItem>
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem>App Development</MenuItem>
-                <MenuItem>Web Development</MenuItem>
-                <MenuItem>Game Development</MenuItem>
-              </Select>
-            </FormControl>
-          </div> */}
+          <Browse />
         </div>
-
-        <div className=" flex items-center flex-row gap-6 pr-10 justify-center">
-          {/* //Search Bar Right */}
-          <div className="h-4 hidden mx-4 items-center">
-            <FormControl
-              size="small"
-              sx={{
-                m: 1,
-                minWidth: 150,
-                display: "flex",
-                border: "none",
-                boxShadow: "none",
-                outline: "none",
-              }}
-              variant="standard"
-            >
-              <InputLabel
-                position="static"
-                id="demo-simple-select-standard-label"
-                sx={{
-                  display: "flex",
-                  border: "none",
-                  outline: "none",
-                  boxShadow: "none",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                  width: "fit-content",
-                  paddingRight: "10px",
-                }}
-              >
-                <InputAdornment position="start">
-                  <AiOutlineCompass />
-                </InputAdornment>
-                Browse
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-select-small-autowidth"
-                // value={age}
-                // onChange={handleChange}
-                autoWidth
-                label="Age"
-              >
-                <MenuItem>
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem>Twenty</MenuItem>
-                <MenuItem>Twenty one</MenuItem>
-                <MenuItem>Twenty one and a half</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
+        <div className="flex items-center flex-row gap-6 pr-10 justify-center">
           <div className="max-w-md hidden lg:block mx-auto ">
             <div className="relative flex items-center w-full h-9 rounded-3xl focus-within:shadow-lg bg-[#F2F5FA] overflow-hidden">
               <div className="grid place-items-center h-full w-12 text-gray-300">
@@ -196,7 +76,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              className="w-6 h-6 cursor-pointer"
             >
               <path
                 strokeLinecap="round"
@@ -212,7 +92,7 @@ const Header = () => {
             />
           </div>
           <div className="flex items-center">
-            <div className="h-4 w-4 m-1 flex items-center">
+            <div className="h-4 w-4 m-1 flex items-center cursor-pointer">
               <img
                 src="https://www.cipherschools.com/static/media/WatchPoints.1caa87d88b88c0d4b4ee24fdd5b1db3f.svg"
                 alt=""

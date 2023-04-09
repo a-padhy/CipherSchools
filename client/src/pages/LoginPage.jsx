@@ -1,19 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post("/login", { email, password });
       setUser(data);
-      alert("Login successful");
+      toast.success("Login successful!");
       setRedirect(true);
     } catch (e) {
       alert("Login failed");

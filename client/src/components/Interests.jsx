@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import selectedOptions from "../Options";
 
 const Interests = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const selectedOptions = [
-    { optionId: 1, label: "App Development" },
-    { optionId: 2, label: "Web Development" },
-    { optionId: 3, label: "Game Development" },
-    { optionId: 4, label: "Data Structures" },
-    { optionId: 5, label: "Programming" },
-    { optionId: 6, label: "Machine Learning" },
-    { optionId: 7, label: "Data Science" },
-    { optionId: 8, label: "Others" },
-  ];
+  // const selectedOptions = [
+  //   { optionId: 1, label: "App Development" },
+  //   { optionId: 2, label: "Web Development" },
+  //   { optionId: 3, label: "Game Development" },
+  //   { optionId: 4, label: "Data Structures" },
+  //   { optionId: 5, label: "Programming" },
+  //   { optionId: 6, label: "Machine Learning" },
+  //   { optionId: 7, label: "Data Science" },
+  //   { optionId: 8, label: "Others" },
+  // ];
   const editHandler = (e) => {
     e.preventDefault();
     setIsOpen(true);
@@ -41,7 +42,7 @@ const Interests = () => {
   return (
     <>
       {isOpen && modal}
-      <div className="mb-2 w-full p-10">
+      <div className="mb-2 w-full px-10 py-5">
         <div className="flex justify-between align-center h-10">
           <label className="block text-lg font-semibold">INTERESTS</label>
           <button

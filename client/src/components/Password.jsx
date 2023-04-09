@@ -186,9 +186,9 @@ const Password = () => {
     <>
       {/* console.log({headers}); */}
       {isOpen && modal}
-      <div className="mb-2 w-full p-10">
+      <div className="mb-2 w-full px-10 py-5">
         <div className="flex justify-between align-center h-10">
-          <label className="block text-lg font-semibold">
+          <label className="block text-lg font-semibold pb-1">
             PASSWORD AND SECURITY
           </label>
           <button
@@ -202,10 +202,9 @@ const Password = () => {
           <input
             type="password"
             name="password"
-            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-lg border-gray-300 rounded-md"
-            placeholder="Password"
-            // value={value}
-            // onChange={onChange}
+            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-lg border-gray-300 rounded-md bg-white"
+            value="Password"
+            disabled
           />
         </div>
       </div>

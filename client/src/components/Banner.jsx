@@ -170,18 +170,19 @@ const Banner = () => {
               </svg>
             </div>
           </div>
-          <div className="inline ml-3 text-sm">
+          <div className="inline ml-3 text-md">
             <span className="block">Hello,</span>
-            <span className="block font-bold text-base">
+            <span className="block font-bold text-lg">
               {" "}
-              {(user && user.firstName) || "Cipher Schools"}
+              {(user && `${user.firstName} ${user.lastName}`) ||
+                "Cipher Schools"}
             </span>
             <span>{(user && user.email) || "*******@gmail.com"}</span>
           </div>
         </div>
 
         <Link to="/followers" className="border border-orange-500 p-2 ">
-          <button className="font-bold text-base">10K followers</button>
+          <button className="font-bold text-base">45 Followers</button>
         </Link>
       </div>
     </>

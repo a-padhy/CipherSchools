@@ -7,6 +7,9 @@ export default {
         bgcolor: "#e8eaec",
       },
     },
+    fontFamily: {
+      body: ["Open Sans"],
+    },
   },
   plugins: [],
 };
