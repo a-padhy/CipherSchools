@@ -22,6 +22,10 @@ const Interests = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("hi");
+  };
   const optionClickHandler = (optionId) => {
     const updatedOptions = options.map((option) => {
       if (option.optionId === optionId) {
@@ -40,13 +44,29 @@ const Interests = () => {
             <span
               key={optionId}
               className={`${
-                selected ? "bg-orange-500" : "bg-pink-500"
+                selected
+                  ? "bg-orange-500 text-white"
+                  : "bg-slate-200 text-black"
               } p-2 rounded cursor-pointer`}
               onClick={() => optionClickHandler(optionId)}
             >
               {label}
             </span>
           ))}
+        </div>
+        <div className="flex items-center justify-end gap-3 mt-3">
+          <button
+            onClick={closeModal}
+            className="cursor-pointer px-8 py-2 bg-gray-500 text-white text-base rounded-3xl hover:bg-gray-600"
+          >
+            Cancel
+          </button>
+          <button
+            className="cursor-pointer px-8 py-2 bg-orange-500 text-white text-base rounded-3xl hover:bg-orange-600"
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
         </div>
       </div>
     </Modal>

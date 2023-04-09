@@ -3,12 +3,20 @@ import Modal from "./Modal";
 import { UserContext } from "../UserContext";
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Banner = () => {
-  const { user } = useContext(UserContext);
-  // console.log(user);
+  const { user, setUser } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data } = axios.get("/").then(({ data }) => {
+        setUser(data);
+      });
+    };
+    fetchUser();
+  }, [user]);
+
   const editHandler = (e) => {
     e.preventDefault();
     setIsOpen(true);
@@ -16,10 +24,11 @@ const Banner = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+
   const [formData, setFormData] = useState({
-    firstName: user?.firstName || "John",
-    lastName: user?.lastName || "Doe",
-    email: user?.email || "admin@gmail.com",
+    firstName: (user && `${user.firstName}`) || "John",
+    lastName: (user && `${user.lastName}`) || "Doe",
+    email: (user && `${user.email}`) || "admin@gmail.com",
     phoneNo: "",
   });
   const handleChange = (event) => {
@@ -28,16 +37,17 @@ const Banner = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(formData);
     try {
       await axios.put("/change-profile", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log("details updated");
-      setRedirect(true);
+      toast.success("Profile Updated!");
+      console.log("updated");
+      setIsOpen(false);
     } catch (error) {
+      toast.error("Could not update profile");
       console.log(error);
     }
   };
@@ -122,12 +132,12 @@ const Banner = () => {
         <div className="flex items-center justify-end gap-3 mt-3">
           <button
             onClick={closeModal}
-            className="cursor-pointer p-4 bg-gray-500 text-white text-base "
+            className="cursor-pointer px-8 py-2 bg-gray-500 text-white text-base rounded-3xl hover:bg-gray-600"
           >
             Cancel
           </button>
           <button
-            className="cursor-pointer p-4 bg-orange-500 text-white text-base"
+            className="cursor-pointer px-8 py-2 bg-orange-500 text-white text-base rounded-3xl hover:bg-orange-600"
             onClick={handleSubmit}
           >
             Save
@@ -136,9 +146,7 @@ const Banner = () => {
       </div>
     </Modal>
   );
-  // if (redirect) {
-  //   return <Navigate to={"/"} />;
-  // }
+
   return (
     <>
       {isOpen && modal}
