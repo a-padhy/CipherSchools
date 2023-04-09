@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-// import Modal from "./Modal";
 import { UserContext } from "../UserContext";
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import ProfileModal from "./Modals/ProfileModal";
-// import { toast } from "react-toastify";
 
 const Banner = () => {
   const { user, setUser } = useContext(UserContext);
