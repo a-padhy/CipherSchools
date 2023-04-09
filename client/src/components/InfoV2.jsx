@@ -9,7 +9,12 @@ const InfoV2 = () => {
   //   const [pinterest, setPinterest] = React.useState("");
   return (
     <div className="p-10">
-      <h2 class="text-lg font-semibold">ON THE WEB</h2>
+      <div className="flex justify-between">
+        <h2 class="text-lg font-semibold">ON THE WEB</h2>
+        <button className="hover:bg-orange-600 bg-orange-500 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white">
+          Edit
+        </button>
+      </div>
       <div className="flex flex-wrap justify-between">
         <SocialMediaInput
           platform="facebook"

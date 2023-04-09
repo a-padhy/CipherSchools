@@ -188,12 +188,12 @@ const Password = () => {
       {isOpen && modal}
       <div className="mb-2 w-full p-10">
         <div className="flex justify-between align-center h-10">
-          <label className="block text-md font-medium">
+          <label className="block text-lg font-semibold">
             PASSWORD AND SECURITY
           </label>
           <button
             onClick={changePwHandler}
-            className="bg-orange-500 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white"
+            className="bg-orange-500 hover:bg-orange-600 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white"
           >
             Change
           </button>

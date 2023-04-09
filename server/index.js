@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/auth");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+const Follower = require("./models/Follower");
 require("dotenv").config();
 const app = express();
 
@@ -34,6 +35,14 @@ app.get("/", (req, res) => {
   } else {
     res.json(null);
   }
+});
+
+app.get("/all/:pageNo", async (req, res) => {
+  const page = Number(req.params.pageNo) || 3;
+  const limit = 8;
+  const skip = (page - 1) * limit;
+  const followers = await Follower.find({}).skip(skip).limit(limit);
+  res.status(200).json({ followers, nbHits: followers.length });
 });
 
 const port = process.env.PORT || 4000;

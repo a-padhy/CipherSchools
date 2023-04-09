@@ -22,7 +22,7 @@ const Heatmap = () => {
   return (
     <div className=" px-10 pb-5">
       <div className="flex justify-between mb-5">
-        <h2 className="uppercase font-bold text-base leading-6">
+        <h2 className="uppercase font-semibold text-lg leading-6">
           cipher graph
         </h2>
       </div>

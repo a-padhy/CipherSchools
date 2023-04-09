@@ -7,7 +7,7 @@ const ProfessionalInfo = () => {
         <h2 className="uppercase font-bold text-base leading-6">
           professional information
         </h2>
-        <button className="bg-orange-500 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white">
+        <button className="hover:bg-orange-600 bg-orange-500 cursor-pointer h-7 flex items-center justify-center leading-none w-20 rounded-md text-white">
           Edit
         </button>
       </div>
@@ -28,7 +28,7 @@ const ProfessionalInfo = () => {
         </div>
       </div>
 
-      <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+      <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700 " />
     </div>
   );
 };

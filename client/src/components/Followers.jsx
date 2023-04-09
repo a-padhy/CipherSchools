@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 
 const ProfileCardContainer = ({ children }) => (
   <div className="flex flex-wrap justify-center items-center">{children}</div>
@@ -28,51 +30,73 @@ const ProfileCard = ({ name, imageUrl }) => (
   </div>
 );
 
-const profileCardsData = [
-  {
-    id: 1,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    id: 3,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    id: 4,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    id: 5,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    id: 6,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    id: 7,
-    name: "Jane Smith",
-    imageUrl: "https://source.unsplash.com/random/800x601",
-  },
-];
+const Paginate = ({ handlePageClick }) => {
+  // const handlePageClick = ({ selected: selectedPage }) => {
+  //   setCurrentPage(selectedPage);
+  //   console.log(selectedPage);
+  // };
+  const pageCount = Math.ceil(45 / 8);
+  return (
+    <div className="flex flex-col items-center">
+      <ReactPaginate
+        previousLabel={"Back"}
+        nextLabel={"Next"}
+        breakLabel={"..."}
+        breakClassName={"break-me"}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={"flex justify-center items-center mt-4"}
+        subContainerClassName={"pages"}
+        activeClassName={"bg-blue-500 text-white"}
+        activeLinkClassName={"text-white"}
+        pageClassName={
+          "bg-white border border-gray-300 h-10 w-10 flex justify-center items-center mr-2 hover:bg-gray-200"
+        }
+        pageLinkClassName={"text-black"}
+        previousClassName={
+          "bg-white border border-gray-300 h-10 w-10 flex justify-center items-center mr-2 hover:bg-gray-200"
+        }
+        nextClassName={
+          "bg-white border border-gray-300 h-10 w-10 flex justify-center items-center hover:bg-gray-200"
+        }
+        nextLinkClassName={"text-black"}
+        // onPageActive={(page) =>
+        //   console.log(`Page ${page.selected + 1} clicked.`)
+        // }
+      />
+    </div>
+  );
+};
 
 const Followers = () => {
+  const [ProfileCardsData, setProfileCardsData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await axios.get(`/all/${currentPage}`);
+      console.log(currentPage);
+      // console.log(data.followers);
+      setProfileCardsData(data.followers);
+    }
+    fetchData();
+  }, [currentPage]);
   return (
-    <ProfileCardContainer>
-      {profileCardsData.map((profile) => (
-        <ProfileCard key={profile.id} {...profile} />
-      ))}
-    </ProfileCardContainer>
+    <>
+      <ProfileCardContainer>
+        {ProfileCardsData.map((profile) => (
+          <ProfileCard key={profile._id} {...profile} />
+        ))}
+      </ProfileCardContainer>
+      <div className="mb-4">
+        <Paginate handlePageClick={handlePageClick} />
+      </div>
+    </>
   );
 };
 export default Followers;

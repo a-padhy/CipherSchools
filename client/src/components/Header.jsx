@@ -60,7 +60,7 @@ const Header = () => {
             ></img>
           </Link>
           <h1 className="pl-1 font-bold text-xl">CipherSchools</h1>
-          <div className="h-4 hidden mx-4 lg:flex items-center">
+          {/* <div className="h-4 hidden mx-4 lg:flex items-center">
             <FormControl
               size="small"
               sx={{
@@ -108,7 +108,7 @@ const Header = () => {
                 <MenuItem>Game Development</MenuItem>
               </Select>
             </FormControl>
-          </div>
+          </div> */}
         </div>
 
         <div className=" flex items-center flex-row gap-6 pr-10 justify-center">
@@ -226,7 +226,7 @@ const Header = () => {
             </button>
           )) || (
             <button
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-5 rounded"
+              className="bg-orange-500 hover:bg-orange-600 text-white py-1 px-5 rounded"
               onClick={logoutHandler}
             >
               Logout
